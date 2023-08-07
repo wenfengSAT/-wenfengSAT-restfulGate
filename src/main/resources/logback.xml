@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="project.name" value="${project.name:-activate}"/>
+    <property name="app.name" value="${app.name:-api}"/>
+    <property name="log.path" value="${log.path:-/data/logs/activate-api}"/>
+    <property name="log.max.history" value="${log.max.history:-7}"/>
+    <property name="log.level" value="${log.level:-INFO}"/>
+    <!-- 日志输出格式 -->
+    <property name="log.pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${project.name}-${app.name}] [%thread] %-5level %logger - %msg%n"/>
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 输出到文件 appender -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/${app.name}.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${log.max.history}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- 系统模块日志级别控制  -->
+    <logger name="com.activate" level="${log.level:-INFO}"/>
+    <!-- Spring日志级别控制  -->
+    <logger name="org.springframework" level="WARN"/>
+
+    <!--系统操作日志-->
+    <root level="${log.level:-INFO}">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+
+</configuration>
