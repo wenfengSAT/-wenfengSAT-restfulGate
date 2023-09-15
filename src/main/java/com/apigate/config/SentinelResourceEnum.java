@@ -12,6 +12,8 @@ import lombok.Getter;
  */
 @Getter
 public enum SentinelResourceEnum {
+	
+	
 
 	Login(500, "LoginController.login", "登录接口"),;
 
@@ -24,4 +26,5 @@ public enum SentinelResourceEnum {
 		this.resource = resource;
 		this.desc = desc;
 	}
+	
 }
