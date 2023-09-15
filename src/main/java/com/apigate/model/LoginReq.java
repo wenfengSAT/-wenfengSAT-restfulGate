@@ -34,11 +34,11 @@ public class LoginReq implements Serializable {
 	@JsonProperty("body")
 	@Valid
 	@NotNull(message = "请求体不能为空")
-	private SdkActivationReqMsgbody body;
+	private LoginReqMsgbody body;
 
 	@Setter
 	@Getter
-	public static class SdkActivationReqMsgbody implements Serializable {
+	public static class LoginReqMsgbody implements Serializable {
 
 		private static final long serialVersionUID = 1L;
 

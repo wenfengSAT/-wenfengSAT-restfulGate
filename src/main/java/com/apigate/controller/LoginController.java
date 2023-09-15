@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSON;
-import com.apigate.config.SentinelResourceConst;
 import com.apigate.controller.base.SentinelController;
 import com.apigate.model.LoginReq;
 import com.apigate.service.LoginService;
@@ -26,9 +25,9 @@ import lombok.extern.slf4j.Slf4j;
  * @Modified By： [修改人] on [修改日期] for [修改说明]
  *
  */
+@Slf4j
 @RestController
 @RequestMapping("v1")
-@Slf4j
 public class LoginController extends SentinelController<JsonResult> {
 
 	@Autowired
@@ -36,7 +35,7 @@ public class LoginController extends SentinelController<JsonResult> {
 
 	/**
 	 * 
-	 * @Description： 登录 
+	 * @Description： 登录
 	 * 
 	 * @author [ wenfengSAT@163.com ]
 	 * @Date [2023年8月7日上午11:11:22]
@@ -45,10 +44,10 @@ public class LoginController extends SentinelController<JsonResult> {
 	 *
 	 */
 	@PostMapping(value = "/app/acct/login")
-	@SentinelResource(value = SentinelResourceConst.login, blockHandler = "handleFlowQpsException", fallback = "apiFallback")
+	@SentinelResource(value = "LoginController.login", blockHandler = "handleFlowQpsException", fallback = "apiFallback")
 	public JsonResult login(@Valid @RequestBody LoginReq req) {
 		JsonResult resp = loginService.login(req);
-		log.info("sdkActivate param:[{}] result:[{}]", JSON.toJSONString(req), JSON.toJSONString(resp));
+		log.info("login param:[{}] result:[{}]", JSON.toJSONString(req), JSON.toJSONString(resp));
 		return resp;
 	}
 

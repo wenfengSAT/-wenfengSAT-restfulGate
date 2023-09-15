@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="project.name" value="${project.name:-activate}"/>
+    <property name="project.name" value="${project.name:-resultfulGate}"/>
     <property name="app.name" value="${app.name:-api}"/>
-    <property name="log.path" value="${log.path:-/data/logs/activate-api}"/>
+    <property name="log.path" value="${log.path:-/data/logs/resultfulGate}"/>
     <property name="log.max.history" value="${log.max.history:-7}"/>
     <property name="log.level" value="${log.level:-INFO}"/>
     <!-- 日志输出格式 -->
@@ -34,9 +34,9 @@
 
 
     <!-- 系统模块日志级别控制  -->
-    <logger name="com.activate" level="${log.level:-INFO}"/>
+    <logger level="INFO" name="com.apigate.*" addtivity="false" charset="UTF-8"/>
     <!-- Spring日志级别控制  -->
-    <logger name="org.springframework" level="WARN"/>
+    <logger level="WARN" name="org.springframework" />
 
     <!--系统操作日志-->
     <root level="${log.level:-INFO}">

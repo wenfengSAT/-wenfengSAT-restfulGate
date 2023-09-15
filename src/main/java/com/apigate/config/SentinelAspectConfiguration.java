@@ -41,17 +41,17 @@ public class SentinelAspectConfiguration {
 	 */
 	@PostConstruct
 	private void initRules() throws Exception {
-
-		FlowRule testFlowRule = new FlowRule();
-		// 1、测试接口限流
-		testFlowRule.setResource(SentinelResourceConst.login);
-		testFlowRule.setCount(SentinelResourceConst.QPS);// 限流阈值 qps=10
-		testFlowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);// 限流阈值类型（QPS 或并发线程数）
-		testFlowRule.setLimitApp("default");// 流控针对的调用来源，若为 default 则不区分调用来源
-		// 流量控制手段（直接拒绝、Warm Up、匀速排队）
-		testFlowRule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER);
-		List<FlowRule> ruleList = CollectionUtil.newArrayList(testFlowRule);
-
+		List<FlowRule> ruleList = CollectionUtil.newArrayList();
+		for (SentinelResourceEnum SentinelResourcem : SentinelResourceEnum.values()) {
+			FlowRule flowRule = new FlowRule();
+			flowRule.setResource(SentinelResourcem.getResource());
+			flowRule.setCount(SentinelResourcem.getQps());// 限流阈值 qps=10
+			flowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);// 限流阈值类型（QPS 或并发线程数）
+			flowRule.setLimitApp("default");// 流控针对的调用来源，若为 default 则不区分调用来源
+			// 流量控制手段（直接拒绝、Warm Up、匀速排队）
+			flowRule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER);
+			ruleList.add(flowRule);
+		}
 		FlowRuleManager.loadRules(ruleList);
 	}
 
